@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service   # deployment 이름 
+  labels:
+    app: auth-service  # Deployment에 app=member-service 라벨 추가 (서비스와 매칭될 때 사용)
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service  # 이 Deployment가 관리할 Pod들의 라벨 지정 (Pod template의 labels와 일치해야 함)
+  template:
+    metadata:
+      labels:
+        app: auth-service  # 생성될 Pod에 app=member-service 라벨 추가 (Service가 이 라벨을 보고 연결)
+    spec:
+      containers:
+        - name: auth-service  # 컨테이너 이름
+          image: team04registry.azurecr.io/auth-service:latest  # 사용할 컨테이너 이미지 (ACR에서 가져옴)
+          ports:
+            - containerPort: 8080

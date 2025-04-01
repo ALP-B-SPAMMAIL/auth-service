@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.4'
+	id 'org.springframework.boot' version '3.2.4'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -19,8 +19,42 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+	
+	// actuator 정의
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    //jwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+	implementation 'org.springframework.boot:spring-boot-configuration-processor' // Spring Boot Configuration Processor
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	// ✅ Spring Cloud LoadBalancer
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
+    // ✅ Spring Cloud Kubernetes
+    implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes-client-all'
+	//implementation("org.springframework.boot:spring-boot-starter-security")
+
+	implementation platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
+	implementation 'org.springframework.kafka:spring-kafka'
 }
 
 tasks.named('test') {
