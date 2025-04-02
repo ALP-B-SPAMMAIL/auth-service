@@ -43,6 +43,7 @@ public class UserService {
         user.setName(registerRequest.name);
         user.setPassword(passwordEncoder.encode(registerRequest.password));
         user.setUserFigureId(registerRequest.userFigureId);
+        user.setEmail(registerRequest.email);
         userRepository.save(user);
 
         try {

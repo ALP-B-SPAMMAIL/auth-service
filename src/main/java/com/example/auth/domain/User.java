@@ -27,6 +27,7 @@ public class User {
     public String birthDate;
     public String password;
     public String interest;
+    public String email;
 
     public int getId(){
         return this.id;
@@ -62,4 +63,10 @@ public class User {
     public void setUserFigureId(String userFigureId) {
         this.userFigureId=userFigureId;
     }
+    public void setEmail(String email) {
+        this.email=email;
+    }
+    public String getEmail() {
+        return this.email;
+    }   
 }
