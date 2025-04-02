@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.auth.dto.request.RegisterRequest;
 import com.example.auth.dto.request.SignInRequest;
 import com.example.auth.dto.response.AuthResponse;
-import com.example.auth.dto.response.SignInResponse;
+import com.example.auth.dto.response.NewSignInResponse;
 import com.example.auth.service.AuthService;
 import com.example.auth.service.UserService;
 
@@ -21,8 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequiredArgsConstructor
 @RequestMapping
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
@@ -48,7 +48,7 @@ public class AuthController {
     
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInResponse> signIn(
+    public ResponseEntity<NewSignInResponse> signIn(
             @RequestBody SignInRequest signInRequest, HttpServletResponse response) {
         return ResponseEntity.ok(authService.signIn(response, signInRequest));
     }

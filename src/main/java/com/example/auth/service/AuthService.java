@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.auth.domain.User;
 import com.example.auth.dto.request.SignInRequest;
 import com.example.auth.dto.response.AuthResponse;
-import com.example.auth.dto.response.SignInResponse;
+import com.example.auth.dto.response.NewSignInResponse;
 import com.example.auth.util.JwtTokenProvider;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class AuthService {
         return jwtTokenProvider.createAccessToken(userService.findByUserFigureId(userFigureId));
     }
 
-    public SignInResponse signIn(HttpServletResponse response, SignInRequest request) {
+    public NewSignInResponse signIn(HttpServletResponse response, SignInRequest request) {
         User user = userService.findByUserFigureId(request.userFigureId());
 
         if (!passwordEncoder.matches(request.password(), user.getPassword())) {
@@ -42,7 +42,7 @@ public class AuthService {
         String accessToken = jwtTokenProvider.createAccessToken(user);
         response.setHeader("Authorization", accessToken);
 
-        return SignInResponse.of(user.getName());
+        return NewSignInResponse.of(user.getName(),accessToken, user.getId());
     }
 
     public AuthResponse validateToken(String token) {

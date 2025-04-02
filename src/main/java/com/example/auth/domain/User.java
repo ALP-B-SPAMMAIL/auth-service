@@ -28,6 +28,9 @@ public class User {
     public String password;
     public String interest;
 
+    public int getId(){
+        return this.id;
+    }
     public String getPassword() {
         return this.password;
     }

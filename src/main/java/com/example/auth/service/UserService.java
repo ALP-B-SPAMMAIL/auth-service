@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.auth.domain.User;
 import com.example.auth.dto.request.RegisterRequest;
+import com.example.auth.event.UserRegisteredEvent;
+import com.example.auth.eventDto.UserRegisteredEventDto;
+import com.example.auth.kafka.KafkaProducer;
 import com.example.auth.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +22,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final KafkaProducer kafkaProducer;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, KafkaProducer kafkaProducer){
         this.userRepository=userRepository;
         this.passwordEncoder=passwordEncoder;
+        this.kafkaProducer=kafkaProducer;
     }
 
     public User findByUserFigureId(String userFigureId) {
@@ -38,6 +44,13 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(registerRequest.password));
         user.setUserFigureId(registerRequest.userFigureId);
         userRepository.save(user);
+
+        try {
+            kafkaProducer.publish(new UserRegisteredEvent(new UserRegisteredEventDto(user)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "error";
+        }   
 
         return "created";
     }
