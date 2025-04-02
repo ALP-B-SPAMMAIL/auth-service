@@ -55,6 +55,7 @@ public class AuthController {
 
     @GetMapping("/validate-token")
     public AuthResponse validateToken(@RequestHeader("Authorization") String token) {
+        
         if (token == null || !token.startsWith("Bearer ")) {
             throw new IllegalArgumentException("Token is missing or malformed");
         }

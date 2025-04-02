@@ -1,6 +1,12 @@
 server:
   port: 8080
-
+  tomcat:
+    remote-ip-header: X-Forwarded-For
+    protocol-header: X-Forwarded-Proto
+    server-header: Apache
+    internal-proxies: 127.0.0.1|::1
+    use-relative-redirects: true
+    
 spring:
   application:
     name: auth-service
@@ -58,3 +64,5 @@ management:
 logging:
  level:
    root: debug
+
+   

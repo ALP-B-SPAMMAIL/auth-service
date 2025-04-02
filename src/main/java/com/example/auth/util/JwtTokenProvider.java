@@ -63,6 +63,7 @@ public class JwtTokenProvider {
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setSubject(user.getUserFigureId())
+                //.addClaims(Map.of(USER_ROLE, "ADMIN"))
                 .compact();
     }
 
@@ -72,7 +73,7 @@ public class JwtTokenProvider {
                 .build()
                 .parseClaimsJws(token);
 
-        String userId = claims.getBody().getSubject();
+        String userFigureId = claims.getBody().getSubject();
 
         //log.info("login user: {}", userId);
 
@@ -80,7 +81,7 @@ public class JwtTokenProvider {
             return "0";
         }
 
-        return userId;
+        return userFigureId;
     }
 
     public String getUserId(String token) {
