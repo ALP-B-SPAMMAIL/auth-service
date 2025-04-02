@@ -15,4 +15,8 @@ public class UserRegisteredEventDto extends AbstractDto{
     public UserRegisteredEventDto(User user) {
         this.userId = user.getId();
     }
+
+    public int getUserId() {
+        return userId;
+    }
 }

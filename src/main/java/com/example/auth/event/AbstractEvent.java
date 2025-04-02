@@ -30,4 +30,12 @@ public abstract class AbstractEvent {
     public String getEventType() {
         return eventType;
     }
+
+    public AbstractDto getPayload() {
+        return payload;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
 }
