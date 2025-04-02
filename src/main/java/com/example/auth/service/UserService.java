@@ -52,7 +52,7 @@ public class UserService {
             return "error";
         }   
 
-        return "created";
+        return "{\"success\": true, \"userId\": " + user.getId() + "}";
     }
 
     // public User findByPhoneNumber(String phoneNumber) {
